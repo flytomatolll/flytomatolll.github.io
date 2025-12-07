@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给特别的你</title>
+    <style>
+        /* --- 页面美化部分 (CSS) --- */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* 防止按钮跑出去出现滚动条 */
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 可以在这里放一张她的照片或者可爱的动图 */
+        .photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ffdde1;
+            margin: 0 auto 20px;
+            background-image: url('https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif'); /* 这里可以换图片链接 */
+            background-size: cover;
+            background-position: center;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .btn-group {
+            position: relative;
+            height: 60px; /* 给按钮留出空间 */
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            outline: none;
+        }
+
+        /* 同意按钮样式 */
+        #yesBtn {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            position: relative; /* 相对定位，保持在中间 */
+        }
+        
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background: #ff5252;
+        }
+
+        /* 拒绝按钮样式 */
+        #noBtn {
+            background: #e0e0e0;
+            color: #666;
+            position: absolute; /* 绝对定位，方便满屏跑 */
+            margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="photo"></div>
+        <h1 id="question">做我女朋友好吗？</h1>
+        <p>我会写代码，还会修电脑，关键是对你好！</p>
+        
+        <div class="btn-group">
+            <button id="yesBtn">好呀</button>
+            <button id="noBtn">不要</button>
+        </div>
+    </div>
+
+    <script>
+        /* --- 核心逻辑部分 (JavaScript) --- */
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+
+        // 1. 点击“好呀”的逻辑
+        yesBtn.addEventListener('click', () => {
+            question.innerText = "我就知道你会答应的！❤️";
+            question.style.color = "#ff6b6b";
+            
+            // 隐藏按钮，换成一句情话
+            document.querySelector('.btn-group').style.display = 'none';
+            document.querySelector('p').innerText = "今晚请你吃饭，庆祝一下！";
+            
+            // 这里可以加简单的烟花特效或者背景变粉色
+            document.body.style.background = "#ffdde1";
+        });
+
+        // 2. “不要”按钮的逃跑逻辑
+        // 鼠标移入时逃跑 (电脑端)
+        noBtn.addEventListener('mouseover', moveButton);
+        // 点击时逃跑 (手机端点击瞬间也会触发)
+        noBtn.addEventListener('click', moveButton);
+
+        function moveButton() {
+            // 获取窗口的宽高
+            const maxWidth = window.innerWidth - noBtn.offsetWidth;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight;
+
+            // 生成随机坐标
+            const randomX = Math.random() * maxWidth;
+            const randomY = Math.random() * maxHeight;
+
+            // 让按钮变成绝对定位，脱离卡片束缚，满屏幕跑
+            noBtn.style.position = 'fixed'; 
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+</html>
